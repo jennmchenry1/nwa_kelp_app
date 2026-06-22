@@ -1,0 +1,1 @@
+Species codes are : Ac- Agarum clathratum, Ae- Alaria esculenta, Ld- Laminaria digitata, and Sl- Saccharina latissima
