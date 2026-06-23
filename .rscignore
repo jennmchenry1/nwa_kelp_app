@@ -1,0 +1,29 @@
+# .rscignore -- controls what rsconnect::deployApp() actually bundles and
+# uploads. Only what's listed here gets EXCLUDED; everything else still ships.
+#
+# IMPORTANT: this file must sit in the same folder as app.R (the appDir
+# you pass to deployApp()), NOT inside McHenry_etal/.
+
+# ---- Raw, full-resolution raster folders ----
+# The app only ever reads from McHenry_etal/Processed_for_app/ at runtime
+# (see processed_dir in app.R). These raw folders are only needed locally,
+# by preprocess_rasters.R, and never by the deployed app itself.
+# Leading "/" anchors the path to this folder's root, so these patterns
+# match ONLY the raw copies -- not the same-named subfolders that live
+# inside Processed_for_app/.
+/McHenry_etal/Current_distributions/
+/McHenry_etal/Environmental_layers/
+/McHenry_etal/Projected_redistribution/
+/McHenry_etal/Projected_Kelp_community_change/
+
+# ---- Local-only scripts and files, not needed by the running app ----
+App_Deployment.R
+preprocess_rasters.R
+.RData
+.Rhistory
+
+# ---- Windows / GIS tool junk ----
+desktop.ini
+McHenry_etal/desktop.ini
+*.aux.xml
+README.txt

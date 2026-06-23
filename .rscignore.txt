@@ -1,0 +1,1 @@
+file.copy("path/to/downloaded/.rscignore", "nwa_kelp_app/.rscignore")
