@@ -12,7 +12,6 @@ source("constants.R")
 source("constants_future.R")
 source("constants_community_turnover.R")
 
-
 # Path to the pre-downscaled (and, for the composition tab, pre-classified)
 # rasters produced by preprocess_rasters.R. Must match the `processed_dir`
 # used in that script.
@@ -103,11 +102,19 @@ ui <- fluidPage(
       .main-title { color: #0b5563; font-weight: 700; }
       .nav-tabs > li > a { color: #B19CD9; }
       .nav-tabs > li > a:hover { color: #5B2C6F; }
+      .species-card {
+        background: #f8fbfb;
+        border: 1px solid #e3e3e3;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+      }
     "))
   ),
   
   
   tabsetPanel(
+    id = "main_tabs",
     tabPanel("About",
              fluidRow(
                class = "stat-row",
@@ -147,13 +154,33 @@ ui <- fluidPage(
                class = "about-section",
                h4("The four species behind the maps"),
                p("We modeled the dominant canopy-forming kelp species across the region, each with distinct thermal preferences:"),
-               div(
-                 span(class = "species-pill", "Alaria esculenta \u2014 winged kelp (cold-adapted)"),
-                 span(class = "species-pill", "Agarum clathratum \u2014 shotgun kelp (cold-adapted)"),
-                 span(class = "species-pill", "Saccharina latissima \u2014 sugar kelp (eurythermal)"),
-                 span(class = "species-pill", "Laminaria digitata complex \u2014 horsetail kelp (warm-adapted)")
+               fluidRow(
+                 column(3, div(class = "species-card",
+                               tags$img(src = "alaria_esculenta.jpg", alt = "Alaria esculenta",
+                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Alaria esculenta"),
+                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Winged kelp \u2014 cold-adapted")
+                 )),
+                 column(3, div(class = "species-card",
+                               tags$img(src = "agarum_clathratum.jpg", alt = "Agarum clathratum",
+                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Agarum clathratum"),
+                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Shotgun kelp \u2014 cold-adapted")
+                 )),
+                 column(3, div(class = "species-card",
+                               tags$img(src = "saccharina_latissima.jpg", alt = "Saccharina latissima",
+                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Saccharina latissima"),
+                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Sugar kelp \u2014 eurythermal")
+                 )),
+                 column(3, div(class = "species-card",
+                               tags$img(src = "laminaria_digitata.jpg", alt = "Laminaria digitata",
+                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Laminaria digitata"),
+                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Horsetail kelp \u2014 warm-adapted")
+                 ))
                ),
-               p(style = "margin-top:10px;",
+               p(style = "margin-top:14px;",
                  "Laminaria digitata is treated together with Hedophyllum nigripes, since the two ",
                  "cannot be reliably distinguished in underwater surveys and are expected to co-occur ",
                  "across most of their range."
@@ -239,6 +266,35 @@ ui <- fluidPage(
                  "This work is part of ", tags$strong("Blue Carbon Canada"),
                  ", with support from Fisheries and Oceans Canada, NSERC, Mitacs, and Oceans North, ",
                  "among other funders."
+               )
+             ),
+             
+             div(
+               class = "about-section",
+               h4("The team behind this work"),
+               p(
+                 "We're a group of kelp researchers from academic, NGO, and government ",
+                 "institutions across Atlantic Canada and the United States, brought together ",
+                 "by a shared interest in understanding how kelp forests are responding to ",
+                 "rapid ocean warming \u2014 and where they're most likely to hold on."
+               ),
+               div(
+                 style = "text-align:center; margin-top:14px;",
+                 div(
+                   style = "display:flex; gap:10px; justify-content:center; flex-wrap:wrap;",
+                   tags$img(src = "team_photo_1.jpg", alt = "Research team photo 1",
+                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"),
+                   tags$img(src = "team_photo_2.jpg", alt = "Research team photo 2",
+                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"),
+                   tags$img(src = "team_photo_3.jpg", alt = "Research team photo 3",
+                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);")
+                 ),
+                 p(style = "font-size:0.85rem; color:#666; margin-top:8px;",
+                   "The McHenry Lab and collaborators across Blue Carbon Canada.")
+               ),
+               p(style = "margin-top:14px;",
+                 tags$strong("App built by:"), " Jenn McHenry (University of Victoria) and ",
+                 "Jarrett Byrnes (University of Massachusetts Boston)."
                )
              ),
              
@@ -345,10 +401,12 @@ server <- function(input, output) {
   
   ## An observe statement to update the dist map
   observe({
+    req(input$main_tabs == "Current Distributions")
     print("updating")
     
     # here we use leafletProxy()
     leafletProxy(mapId = "dist") |>
+      invalidateSize() |>
       clearShapes() |>
       addRasterImage(x = kelp_rast(), 
                      colors = kelp_pal,
@@ -401,9 +459,11 @@ server <- function(input, output) {
   
   ## An observe statement to update the change map when species/scenario change
   observe({
+    req(input$main_tabs == "Projected Redistribution")
     print("updating change map")
     
     leafletProxy(mapId = "community_change") |>
+      invalidateSize() |>
       clearShapes() |>
       addRasterImage(x = change_rast(),
                      colors = change_pal,
@@ -449,9 +509,11 @@ server <- function(input, output) {
   
   ## An observe statement to update the composition map when the scenario changes
   observe({
+    req(input$main_tabs == "Community Compositional Change")
     print("updating composition map")
     
     leafletProxy(mapId = "composition_change") |>
+      invalidateSize() |>
       clearShapes() |>
       addRasterImage(x = composition_rast(),
                      colors = composition_pal,
@@ -494,6 +556,7 @@ server <- function(input, output) {
   
   # An observe statement to update the env map
   observe({
+    req(input$main_tabs == "Environmental Layers")
     print("updating env map")
     env_values <- values(env_rast())
     
@@ -507,6 +570,7 @@ server <- function(input, output) {
     
     # here we use leafletProxy()
     leafletProxy(mapId = "env_layers") |>
+      invalidateSize() |>
       clearShapes() |>
       clearControls() |>
       addRasterImage(x = env_rast(),
