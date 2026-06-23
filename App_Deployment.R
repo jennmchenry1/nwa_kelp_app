@@ -6,8 +6,8 @@ setwd("C:/Users/Jenn/Dropbox/GITHUB/RShiny_Repos/")
 
 # https://www.shinyapps.io/admin/#/dashboard
 rsconnect::setAccountInfo(name='jennifermchenry',
-                          token='C58D5A16C20AC8045B89CB73F1483BFE',
-                          secret='l54+Yu5uGU1qY/viBa3oUI2iIbKPogBQ+E55kiUJ')
+                          token='8897D0299ECE4C97E70E32057D25B091',
+                          secret='DRAs6HrZs5QWFwkqtOAEu6CRxxpsCMnswQr+luVd')
 
 rsconnect::deployApp(appName = "nwa_kelp_app",account = "jennifermchenry",appDir = "nwa_kelp_app")
 
