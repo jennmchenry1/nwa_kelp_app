@@ -9,7 +9,7 @@ base_tileset <- "CartoDB.VoyagerNoLabels"
 #bbox_4326 <- c(-84.65134,  32.03136, -46.60617,  63.30299)
 bbox_4326 <- c(-85.06227,  37.35765, -43.84547,  58.27117)
 
-toplevel_dir <- "McHenry_et_al_in_Rshiny_NWA_kelp_projections"
+toplevel_dir <- "McHenry_etal"
 current_dist_dir <- "Current_distributions"
 env_dist_dir <- "Environmental_layers/baseline_2010"
 
