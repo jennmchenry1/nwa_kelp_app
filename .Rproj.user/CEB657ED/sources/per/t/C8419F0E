@@ -1,0 +1,26 @@
+{
+    "id": "C8419F0E",
+    "path": "C:/Users/jennm/Dropbox/GITHUB/RShiny_Repos/nwa_kelp_app/constants.R",
+    "project_path": "constants.R",
+    "type": "r_source",
+    "hash": "3088439799",
+    "contents": "",
+    "dirty": false,
+    "created": 1782149631012.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "37,0",
+        "scrollLine": "23"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1782165058,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1782165058704,
+    "read_only": false,
+    "read_only_alternatives": []
+}
