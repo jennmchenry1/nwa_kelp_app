@@ -12,7 +12,6 @@ source("constants.R")
 source("constants_future.R")
 source("constants_community_turnover.R")
 
-<<<<<<< HEAD
 # Path to the pre-downscaled (and, for the composition tab, pre-classified)
 # rasters produced by preprocess_rasters.R. Must match the `processed_dir`
 # used in that script.
@@ -29,8 +28,6 @@ load_processed_rast <- function(filename) {
   rast(filename)
 }
 
-=======
->>>>>>> bf0a8258037e7051c5c2afc27670cc3ff5225aee
 # 2. Define a User Interface
 ui <- fluidPage(
   title = "Northwest Atlantic Kelp Species Distribution Models",
@@ -313,28 +310,8 @@ server <- function(input, output) {
   
   ## for the kelp distribution
   kelp_rast <- reactive({
-<<<<<<< HEAD
     kelp_filname <- glue("{toplevel_dir}/{processed_dir}/{current_dist_dir}/{kelp_layers[[input$species]]}") 
     load_processed_rast(kelp_filname)
-=======
-    kelp_filname <- glue("{toplevel_dir}/{current_dist_dir}/{kelp_layers[[input$species]]}") 
-    
-    #debug
-    print(glue("Loading {kelp_filname}"))
-    print(list.files(glue("{toplevel_dir}/{current_dist_dir}")))
-    
-    r<-  rast(kelp_filname)
-    print("Raster Loaded")
-    print(r)
-    print("Sampling...")
-    r <- r|>    spatSample(size = maxcell, 
-                           as.raster=TRUE, 
-                           warn=TRUE,
-                           method = "regular")
-    print("success!")
-    
-    r
->>>>>>> bf0a8258037e7051c5c2afc27670cc3ff5225aee
   })
   
   # Explicit palette for the binary presence (1) / absence (0) raster.
@@ -391,29 +368,9 @@ server <- function(input, output) {
   ##   )
   change_rast <- reactive({
     change_filname <- glue(
-<<<<<<< HEAD
       "{toplevel_dir}/{processed_dir}/{change_dist_dir}/{change_layers[[input$change_scenario]][[input$species_change]]}"
     )
     load_processed_rast(change_filname)
-=======
-      "{toplevel_dir}/{change_dist_dir}/{change_layers[[input$change_scenario]][[input$species_change]]}"
-    )
-    
-    #debug
-    print(glue("Loading {change_filname}"))
-    
-    r <- rast(change_filname)
-    print("Raster Loaded")
-    print(r)
-    print("Sampling...")
-    r <- r |> spatSample(size = maxcell,
-                         as.raster = TRUE,
-                         warn = TRUE,
-                         method = "regular")
-    print("success!")
-    
-    r
->>>>>>> bf0a8258037e7051c5c2afc27670cc3ff5225aee
   })
   
   # Categorical palette for the 4-class projected change raster:
@@ -454,7 +411,6 @@ server <- function(input, output) {
   })
   
   ## for community compositional change (persistence / turnover / complete loss)
-<<<<<<< HEAD
   ## The classification itself (Bray-Curtis >= 0.25 -> turnover, complete
   ## kelp loss overriding both) is now done once in preprocess_rasters.R --
   ## this just loads the single finished raster for the selected scenario.
@@ -463,46 +419,6 @@ server <- function(input, output) {
       "{toplevel_dir}/{processed_dir}/{community_dist_dir}/composition_{scenario_code(input$composition_scenario)}.tif"
     )
     load_processed_rast(composition_filename)
-=======
-  ## Per the README: overlay the complete kelp loss layer on top of the
-  ## classified Bray-Curtis layer for a given scenario.
-  ##   Bray-Curtis  < 0.25            -> "persistence zone"  (class 0)
-  ##   Bray-Curtis >= 0.25            -> "turnover zone"     (class 1)
-  ##   all_kelp_lost == 1 (overrides) -> "complete loss"     (class 2)
-  composition_rast <- reactive({
-    bc_filename   <- glue("{toplevel_dir}/{community_dist_dir}/{bray_curtis_layers[[input$composition_scenario]]}")
-    loss_filename <- glue("{toplevel_dir}/{community_dist_dir}/{kelp_lost_layers[[input$composition_scenario]]}")
-    
-    #debug
-    print(glue("Loading {bc_filename}"))
-    bc <- rast(bc_filename)
-    print("Bray-Curtis raster loaded")
-    print(bc)
-    
-    print(glue("Loading {loss_filename}"))
-    loss <- rast(loss_filename)
-    print("Complete kelp loss raster loaded")
-    print(loss)
-    
-    # defensive check in case the two layers weren't generated on identical grids
-    if (!compareGeom(bc, loss, stopOnError = FALSE)) {
-      print("Grids differ -- resampling loss layer to match Bray-Curtis grid")
-      loss <- resample(loss, bc, method = "near")
-    }
-    
-    print("Classifying...")
-    composition <- (bc >= 0.25) * 1          # 0 = persistence, 1 = turnover; NA preserved
-    composition[loss == 1] <- 2               # complete loss overrides turnover/persistence
-    
-    print("Sampling...")
-    composition <- composition |> spatSample(size = maxcell,
-                                             as.raster = TRUE,
-                                             warn = TRUE,
-                                             method = "regular")
-    print("success!")
-    
-    composition
->>>>>>> bf0a8258037e7051c5c2afc27670cc3ff5225aee
   })
   
   # Categorical palette for the 3-class community trajectory raster,
@@ -544,19 +460,8 @@ server <- function(input, output) {
   
   # ### Environmental Layers
   env_rast <- reactive({
-<<<<<<< HEAD
     env_filename <- glue("{toplevel_dir}/{processed_dir}/{env_dist_dir}/{env_layers[[input$env_layers_input]]}")
     load_processed_rast(env_filename)
-=======
-    r <-  load_resample_rast(
-      toplevel_dir,
-      env_dist_dir,
-      env_layers,
-      "env_layers_input",
-      input
-    )
-    r
->>>>>>> bf0a8258037e7051c5c2afc27670cc3ff5225aee
   })
   
   env_values <- reactive({values(env_rast())})
