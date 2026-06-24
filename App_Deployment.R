@@ -17,3 +17,4 @@ rsconnect::deployApp(appName = "nwa_kelp_app",account = "jennifermchenry",appDir
 # rsconnect::configureApp(appName = "nwa_kelp_app", size="large",account = "jennifermchenry",appDir = "nwa_kelp_app")
 
 # rsconnect::showLogs(appName = "nwa_kelp_app", account = "jennifermchenry")
+
