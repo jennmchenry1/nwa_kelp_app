@@ -167,9 +167,9 @@ ui <- fluidPage(
                  "surveys tell a more nuanced story \u2014 with some areas experiencing complete loss ",
                  "and others exhibiting shifts in species dominance, surprising pockets of ",
                  "persistence, and even signs of recovery after past heatwaves. Part of that ",
-                 "mismatch reflects the sparse, often biased occurrence data earlier models relied ",
-                 "on; a decade of expanded monitoring has since produced a substantially larger, ",
-                 "more locally resolved dataset for calibrating models to regional conditions."
+                 "mismatch may reflect the sparse, often spatially biased occurrence data earlier models relied ",
+                 "on. However, a decade of expanded monitoring and surveys for kelps has led to ",
+                 "more locally resolved datasets for calibrating models to regional conditions."
                ),
                div(
                  class = "study-goal",
@@ -265,7 +265,7 @@ ui <- fluidPage(
                )
              ),
              
-
+             
              div(
                class = "about-section",
                h4("How to use this app"),
@@ -288,13 +288,12 @@ ui <- fluidPage(
                ),
                p(
                  "Funding and support for this work comes from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
-                                                 style = "color:#B19CD9;",
-                                                 tags$strong("Blue Carbon Canada")),
-                 ", \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
+                                                                         style = "color:#B19CD9;",
+                                                                         tags$strong("Blue Carbon Canada")),
+                 " \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
                  "This broader research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
                  "among other funders."
-               )
-             ),
+               ),
                div(
                  style = "text-align:center; margin-top:14px;",
                  div(
@@ -311,7 +310,7 @@ ui <- fluidPage(
                )
              ),
              
-            div(
+             div(
                class = "about-section",
                h4("Citation & data"),
                div(
@@ -325,9 +324,9 @@ ui <- fluidPage(
                  "collected through Indigenous partnerships are subject to data-sharing agreements and Indigenous data sovereignty principles ",
                  "and are not included in the public release."
                )
-               ),
+             ),
              
-          div(
+             div(
                class = "about-section",
                h4("Contact"),
                p(
@@ -335,6 +334,7 @@ ui <- fluidPage(
                  tags$strong("Jennifer McHenry"), " (Department of Biology, University of Victoria) at ",
                  tags$a(href = "mailto:jennmchenry@uvic.ca", style = "color:#B19CD9;", "jennmchenry@uvic.ca"), "."
                )
+             )
     ),
     
     # Show raw data
