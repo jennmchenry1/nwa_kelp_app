@@ -73,8 +73,8 @@ ui <- fluidPage(
         padding: 10px 0;
       }
       .refugia-callout {
-        background: rgba(177, 156, 217, 0.15);
-        border-left: 4px solid #B19CD9;
+        background: #eef7f1;
+        border-left: 4px solid #2e8b57;
         border-radius: 6px;
         padding: 14px 18px;
         margin: 14px 0;
@@ -176,6 +176,12 @@ ui <- fluidPage(
                  tags$strong("Study goal: "),
                  "Project not just whether kelp persists, but how species composition is likely ",
                  "to shift \u2014 and where climate refugia might emerge."
+               ),
+               p(style = "margin-top:14px;",
+                 "This app is the interactive companion to that study \u2014 use the tabs above to ",
+                 "explore the underlying species models, their projected redistribution under each ",
+                 "emissions scenario, and the patterns of persistence and turnover that emerge at ",
+                 "the community level."
                )
              ),
              
@@ -185,28 +191,28 @@ ui <- fluidPage(
                p("We modeled the dominant canopy-forming kelp species across the region, each with distinct thermal preferences:"),
                fluidRow(
                  column(3, div(class = "species-card",
-                               tags$img(src = "alaria_esculenta.jpg", alt = "Alaria esculenta",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Alaria esculenta"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Winged kelp \u2014 cold-adapted")
+                   tags$img(src = "alaria_esculenta.jpg", alt = "Alaria esculenta",
+                            style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                   p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Alaria esculenta"),
+                   p(style = "margin:0; font-size:0.85rem; color:#444;", "Winged kelp \u2014 cold-adapted")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "agarum_clathratum.jpg", alt = "Agarum clathratum",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Agarum clathratum"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Shotgun kelp \u2014 cold-adapted")
+                   tags$img(src = "agarum_clathratum.jpg", alt = "Agarum clathratum",
+                            style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                   p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Agarum clathratum"),
+                   p(style = "margin:0; font-size:0.85rem; color:#444;", "Shotgun kelp \u2014 cold-adapted")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "saccharina_latissima.jpg", alt = "Saccharina latissima",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Saccharina latissima"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Sugar kelp \u2014 eurythermal")
+                   tags$img(src = "saccharina_latissima.jpg", alt = "Saccharina latissima",
+                            style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                   p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Saccharina latissima"),
+                   p(style = "margin:0; font-size:0.85rem; color:#444;", "Sugar kelp \u2014 eurythermal")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "laminaria_digitata.jpg", alt = "Laminaria digitata",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Laminaria digitata"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Horsetail kelp \u2014 warm-adapted")
+                   tags$img(src = "laminaria_digitata.jpg", alt = "Laminaria digitata",
+                            style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
+                   p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Laminaria digitata"),
+                   p(style = "margin:0; font-size:0.85rem; color:#444;", "Horsetail kelp \u2014 warm-adapted")
                  ))
                ),
                p(style = "margin-top:14px;",
@@ -265,15 +271,36 @@ ui <- fluidPage(
                )
              ),
              
-
              div(
                class = "about-section",
-               h4("How to use this app"),
+               h4("What the models don't capture"),
                p(
-                 "This app is the interactive companion to a peer reviewed paper in [TBD] \u2014 use the tabs above to ",
-                 "explore the underlying species models, their projected redistribution under each ",
-                 "emissions scenario, and the patterns of persistence and turnover that emerge at ",
-                 "the community level."
+                 "These projections assume kelp can disperse freely to any newly suitable habitat and don't ",
+                 "account for sea urchin grazing pressure, competition with turf algae and invasive species, ",
+                 "changes in kelp abundance or size at a given location, or the potential for local ",
+                 "acclimatization and adaptation. They should be read as a guide to relative climate exposure ",
+                 "and likely compositional change \u2014 not a precise forecast of future kelp cover."
+               )
+             ),
+             
+             div(
+               class = "about-section",
+               h4("Citation & data"),
+               div(
+                 class = "citation-box",
+                 "McHenry, J., Byrnes, J.E.K., DiBacco, C., et al. Projecting climate refugia for kelp ",
+                 "forests in a global hotspot for rapid ocean warming. (In review)."
+               ),
+               p(style = "margin-top:12px;",
+                 "Model code, outputs, and most occurrence data are being made openly available via a public ",
+                 "GitHub repository and the Blue Carbon Canada Borealis Dataverse. Some Indigenous-partnership ",
+                 "datasets are subject to data-sharing agreements and Indigenous data sovereignty principles ",
+                 "and are not included in the public release."
+               ),
+               p(
+                 "This work is part of ", tags$strong("Blue Carbon Canada"),
+                 ", with support from Fisheries and Oceans Canada, NSERC, Mitacs, and Oceans North, ",
+                 "among other funders."
                )
              ),
              
@@ -286,15 +313,6 @@ ui <- fluidPage(
                  "by a shared interest in understanding how kelp forests are responding to ",
                  "rapid ocean warming \u2014 and where they're most likely to hold on."
                ),
-               p(
-                 "Funding and support for this work comes from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
-                                                 style = "color:#B19CD9;",
-                                                 tags$strong("Blue Carbon Canada")),
-                 ", \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
-                 "This broader research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
-                 "among other funders."
-               )
-             ),
                div(
                  style = "text-align:center; margin-top:14px;",
                  div(
@@ -307,34 +325,23 @@ ui <- fluidPage(
                             style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);")
                  ),
                  p(style = "font-size:0.85rem; color:#666; margin-top:8px;",
-                   "Northwest Atlantic Kelp Workshop - 2024")
+                   "The McHenry Lab and collaborators across Blue Carbon Canada.")
+               ),
+               p(style = "margin-top:14px;",
+                 tags$strong("App built by:"), " Jenn McHenry (University of Victoria) and ",
+                 "Jarrett Byrnes (University of Massachusetts Boston)."
                )
              ),
              
-            div(
-               class = "about-section",
-               h4("Citation & data"),
-               div(
-                 class = "citation-box",
-                 "McHenry, J., Byrnes, J.E.K., DiBacco, C., et al. Projecting climate refugia for kelp ",
-                 "forests in a global hotspot for rapid ocean warming. (In review)."
-               ),
-               p(style = "margin-top:12px;",
-                 "Model code, outputs, and most occurrence data are being made openly available via a public ",
-                 "GitHub repository [link] and the Blue Carbon Canada Borealis Dataverse [link]. Some datasets ",
-                 "collected through Indigenous partnerships are subject to data-sharing agreements and Indigenous data sovereignty principles ",
-                 "and are not included in the public release."
-               )
-               ),
-             
-          div(
+             div(
                class = "about-section",
                h4("Contact"),
                p(
                  "Questions about the app or the underlying research? Reach out to ",
                  tags$strong("Jennifer McHenry"), " (Department of Biology, University of Victoria) at ",
-                 tags$a(href = "mailto:jennmchenry@uvic.ca", style = "color:#B19CD9;", "jennmchenry@uvic.ca"), "."
+                 tags$a(href = "mailto:jennmchenry@uvic.ca", "jennmchenry@uvic.ca"), "."
                )
+             )
     ),
     
     # Show raw data

@@ -73,15 +73,8 @@ ui <- fluidPage(
         padding: 10px 0;
       }
       .refugia-callout {
-        background: rgba(177, 156, 217, 0.15);
-        border-left: 4px solid #B19CD9;
-        border-radius: 6px;
-        padding: 14px 18px;
-        margin: 14px 0;
-      }
-      .study-goal {
-        background: #eef5f6;
-        border-left: 4px solid #0b5563;
+        background: #eef7f1;
+        border-left: 4px solid #2e8b57;
         border-radius: 6px;
         padding: 14px 18px;
         margin: 14px 0;
@@ -109,13 +102,6 @@ ui <- fluidPage(
       .main-title { color: #0b5563; font-weight: 700; }
       .nav-tabs > li > a { color: #B19CD9; }
       .nav-tabs > li > a:hover { color: #5B2C6F; }
-      .species-card {
-        background: #f8fbfb;
-        border: 1px solid #e3e3e3;
-        border-radius: 10px;
-        padding: 10px;
-        text-align: center;
-      }
     "))
   ),
   
@@ -143,39 +129,17 @@ ui <- fluidPage(
                class = "about-section",
                h4("Why kelp forests, and why here?"),
                p(
-                 "Kelp forests are ranked among the most climate-vulnerable ecosystems in the ",
-                 "ocean \u2014 the second most vulnerable marine ecosystem overall, and the single ",
-                 "most vulnerable temperate marine ecosystem to climate change. Found along more ",
-                 "than a third of the world's coastlines, these highly productive ecosystems support ",
-                 "rich biodiversity and provide a wide range of ecosystem services, including ",
-                 "fisheries productivity, nursery habitat for fish, nutrient cycling, and carbon ",
-                 "storage. Substantial kelp forest change has already occurred worldwide, driven by ",
-                 "ocean warming, intensifying marine heatwaves, and local pressures like sea urchin ",
-                 "overgrazing and invasive species. Yet predicting where and how kelp forests will ",
-                 "change next remains challenging \u2014 their responses depend on a complex interplay ",
-                 "between climatic, oceanographic, and ecological processes that play out across ",
-                 "different spatial and temporal scales, often at finer scales than most climate ",
-                 "models can resolve."
+                 "Kelp forests are among the most climate-sensitive marine ecosystems on Earth. ",
+                 "They support fisheries, provide nursery habitat, cycle nutrients, and store carbon ",
+                 "along more than a third of the world's coastlines \u2014 but their cool-water requirements ",
+                 "make them especially sensitive to ocean warming."
                ),
                p(
-                 "The Northwest Atlantic provides a compelling regional context for examining ",
-                 "kelp forest redistribution. It's warming faster than nearly anywhere else in the ",
-                 "ocean, and it spans a steep biogeographic gradient \u2014 from warm-temperate ",
-                 "waters off southern New England to the cold, sea-ice-influenced waters of the ",
-                 "Gulf of St. Lawrence, Newfoundland, and Labrador. Earlier large-scale models have ",
-                 "generally projected widespread kelp decline across this region, but local field ",
-                 "surveys tell a more nuanced story \u2014 with some areas experiencing complete loss ",
-                 "and others exhibiting shifts in species dominance, surprising pockets of ",
-                 "persistence, and even signs of recovery after past heatwaves. Part of that ",
-                 "mismatch reflects the sparse, often biased occurrence data earlier models relied ",
-                 "on; a decade of expanded monitoring has since produced a substantially larger, ",
-                 "more locally resolved dataset for calibrating models to regional conditions."
-               ),
-               div(
-                 class = "study-goal",
-                 tags$strong("Study goal: "),
-                 "Project not just whether kelp persists, but how species composition is likely ",
-                 "to shift \u2014 and where climate refugia might emerge."
+                 "The Northwest Atlantic is a particularly important place to study range shift dynamics in temperate kelp forests.",
+                 "The region is warming faster than nearly any other ocean region, and it spans a steep ",
+                 "biogeographic gradient \u2014 from warm-temperate waters off southern New England to the ",
+                 "cold, sea ice influenced waters of the Gulf of St. Lawrence, Newfoundland, and Labrador. ",
+                 "This app shares our projections of how future ocean warming is likely to reshape kelp forest communities along this gradient."
                )
              ),
              
@@ -183,33 +147,13 @@ ui <- fluidPage(
                class = "about-section",
                h4("The four species behind the maps"),
                p("We modeled the dominant canopy-forming kelp species across the region, each with distinct thermal preferences:"),
-               fluidRow(
-                 column(3, div(class = "species-card",
-                               tags$img(src = "alaria_esculenta.jpg", alt = "Alaria esculenta",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Alaria esculenta"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Winged kelp \u2014 cold-adapted")
-                 )),
-                 column(3, div(class = "species-card",
-                               tags$img(src = "agarum_clathratum.jpg", alt = "Agarum clathratum",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Agarum clathratum"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Shotgun kelp \u2014 cold-adapted")
-                 )),
-                 column(3, div(class = "species-card",
-                               tags$img(src = "saccharina_latissima.jpg", alt = "Saccharina latissima",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Saccharina latissima"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Sugar kelp \u2014 eurythermal")
-                 )),
-                 column(3, div(class = "species-card",
-                               tags$img(src = "laminaria_digitata.jpg", alt = "Laminaria digitata",
-                                        style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
-                               p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Laminaria digitata"),
-                               p(style = "margin:0; font-size:0.85rem; color:#444;", "Horsetail kelp \u2014 warm-adapted")
-                 ))
+               div(
+                 span(class = "species-pill", "Alaria esculenta \u2014 winged kelp (cold-adapted)"),
+                 span(class = "species-pill", "Agarum clathratum \u2014 shotgun kelp (cold-adapted)"),
+                 span(class = "species-pill", "Saccharina latissima \u2014 sugar kelp (eurythermal)"),
+                 span(class = "species-pill", "Laminaria digitata complex \u2014 horsetail kelp (warm-adapted)")
                ),
-               p(style = "margin-top:14px;",
+               p(style = "margin-top:10px;",
                  "Laminaria digitata is treated together with Hedophyllum nigripes, since the two ",
                  "cannot be reliably distinguished in underwater surveys and are expected to co-occur ",
                  "across most of their range."
@@ -265,53 +209,19 @@ ui <- fluidPage(
                )
              ),
              
-
              div(
                class = "about-section",
-               h4("How to use this app"),
+               h4("What the models don't capture"),
                p(
-                 "This app is the interactive companion to a peer reviewed paper in [TBD] \u2014 use the tabs above to ",
-                 "explore the underlying species models, their projected redistribution under each ",
-                 "emissions scenario, and the patterns of persistence and turnover that emerge at ",
-                 "the community level."
+                 "These projections assume kelp can disperse freely to any newly suitable habitat and don't ",
+                 "account for sea urchin grazing pressure, competition with turf algae and invasive species, ",
+                 "changes in kelp abundance or size at a given location, or the potential for local ",
+                 "acclimatization and adaptation. They should be read as a guide to relative climate exposure ",
+                 "and likely compositional change \u2014 not a precise forecast of future kelp cover."
                )
              ),
              
              div(
-               class = "about-section",
-               h4("The team behind this work"),
-               p(
-                 "We're a group of kelp researchers from academic, NGO, and government ",
-                 "institutions across Atlantic Canada and the United States, brought together ",
-                 "by a shared interest in understanding how kelp forests are responding to ",
-                 "rapid ocean warming \u2014 and where they're most likely to hold on."
-               ),
-               p(
-                 "Funding and support for this work comes from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
-                                                 style = "color:#B19CD9;",
-                                                 tags$strong("Blue Carbon Canada")),
-                 ", \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
-                 "This broader research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
-                 "among other funders."
-               )
-             ),
-               div(
-                 style = "text-align:center; margin-top:14px;",
-                 div(
-                   style = "display:flex; gap:10px; justify-content:center; flex-wrap:wrap;",
-                   tags$img(src = "team_photo_1.jpg", alt = "Research team photo 1",
-                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"),
-                   tags$img(src = "team_photo_2.jpg", alt = "Research team photo 2",
-                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"),
-                   tags$img(src = "team_photo_3.jpg", alt = "Research team photo 3",
-                            style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);")
-                 ),
-                 p(style = "font-size:0.85rem; color:#666; margin-top:8px;",
-                   "Northwest Atlantic Kelp Workshop - 2024")
-               )
-             ),
-             
-            div(
                class = "about-section",
                h4("Citation & data"),
                div(
@@ -321,20 +231,26 @@ ui <- fluidPage(
                ),
                p(style = "margin-top:12px;",
                  "Model code, outputs, and most occurrence data are being made openly available via a public ",
-                 "GitHub repository [link] and the Blue Carbon Canada Borealis Dataverse [link]. Some datasets ",
-                 "collected through Indigenous partnerships are subject to data-sharing agreements and Indigenous data sovereignty principles ",
+                 "GitHub repository and the Blue Carbon Canada Borealis Dataverse. Some Indigenous-partnership ",
+                 "datasets are subject to data-sharing agreements and Indigenous data sovereignty principles ",
                  "and are not included in the public release."
-               )
                ),
+               p(
+                 "This work is part of ", tags$strong("Blue Carbon Canada"),
+                 ", with support from Fisheries and Oceans Canada, NSERC, Mitacs, and Oceans North, ",
+                 "among other funders."
+               )
+             ),
              
-          div(
+             div(
                class = "about-section",
                h4("Contact"),
                p(
                  "Questions about the app or the underlying research? Reach out to ",
                  tags$strong("Jennifer McHenry"), " (Department of Biology, University of Victoria) at ",
-                 tags$a(href = "mailto:jennmchenry@uvic.ca", style = "color:#B19CD9;", "jennmchenry@uvic.ca"), "."
+                 tags$a(href = "mailto:jennmchenry@uvic.ca", "jennmchenry@uvic.ca"), "."
                )
+             )
     ),
     
     # Show raw data
@@ -420,13 +336,12 @@ server <- function(input, output) {
                 labels = c("Present", "Absent"),
                 title = "Presence/Absence",
                 opacity = 1
-      )
+      ) |> #initialize
+      addRasterImage(x = kelp_rast(), 
+                     colors = kelp_pal,
+                     opacity = 0.7,
+                     method = "ngb")
   })
-  # Let this base map render immediately at session start, even while its
-  # tab is hidden -- this is cheap (no raster data, just an empty map) and
-  # ensures a real map exists in the browser for leafletProxy() to draw on
-  # the moment the gated observer below fires.
-  outputOptions(output, "dist", suspendWhenHidden = FALSE)
   
   ## An observe statement to update the dist map
   observe({
@@ -478,9 +393,12 @@ server <- function(input, output) {
                 labels = c("Loss", "Stable Presence", "Stable Absence", "Gain"),
                 title = "Projected Change",
                 opacity = 1
-      )
+      ) |>
+      addRasterImage(x = change_rast(),
+                     colors = change_pal,
+                     opacity = 0.7,
+                     method = "ngb")
   })
-  outputOptions(output, "community_change", suspendWhenHidden = FALSE)
   
   ## An observe statement to update the change map when species/scenario change
   observe({
@@ -524,9 +442,12 @@ server <- function(input, output) {
                 labels = c("Persistence", "Turnover", "Loss"),
                 title = "Projected Compositional Change",
                 opacity = 1
-      )
+      ) |>
+      addRasterImage(x = composition_rast(),
+                     colors = composition_pal,
+                     opacity = 0.7,
+                     method = "ngb")
   })
-  outputOptions(output, "composition_change", suspendWhenHidden = FALSE)
   
   ## An observe statement to update the composition map when the scenario changes
   observe({
@@ -573,7 +494,6 @@ server <- function(input, output) {
       fitBounds(bbox_4326[1], bbox_4326[2],
                 bbox_4326[3], bbox_4326[4])
   )
-  outputOptions(output, "env_layers", suspendWhenHidden = FALSE)
   
   # An observe statement to update the env map
   observe({

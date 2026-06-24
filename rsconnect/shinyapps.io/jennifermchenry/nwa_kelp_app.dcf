@@ -5,6 +5,6 @@ account: jennifermchenry
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17540590
-bundleId: 12169630
+bundleId: 12169991
 url: https://jennifermchenry.shinyapps.io/nwa_kelp_app/
 version: 1

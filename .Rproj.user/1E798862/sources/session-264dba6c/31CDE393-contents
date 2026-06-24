@@ -73,8 +73,8 @@ ui <- fluidPage(
         padding: 10px 0;
       }
       .refugia-callout {
-        background: rgba(177, 156, 217, 0.15);
-        border-left: 4px solid #B19CD9;
+        background: #eef7f1;
+        border-left: 4px solid #2e8b57;
         border-radius: 6px;
         padding: 14px 18px;
         margin: 14px 0;
@@ -265,7 +265,18 @@ ui <- fluidPage(
                )
              ),
              
-
+             div(
+               class = "about-section",
+               h4("What the models don't capture"),
+               p(
+                 "These projections assume kelp can disperse freely to any newly suitable habitat and don't ",
+                 "account for sea urchin grazing pressure, competition with turf algae and invasive species, ",
+                 "changes in kelp abundance or size at a given location, or the potential for local ",
+                 "acclimatization and adaptation. They should be read as a guide to relative climate exposure ",
+                 "and likely compositional change \u2014 not a precise forecast of future kelp cover."
+               )
+             ),
+             
              div(
                class = "about-section",
                h4("How to use this app"),
@@ -287,14 +298,13 @@ ui <- fluidPage(
                  "rapid ocean warming \u2014 and where they're most likely to hold on."
                ),
                p(
-                 "Funding and support for this work comes from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
+                 "This work was funded by ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
                                                  style = "color:#B19CD9;",
                                                  tags$strong("Blue Carbon Canada")),
                  ", \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
-                 "This broader research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
+                 "Funding and support for this research comes from Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
                  "among other funders."
-               )
-             ),
+               ),
                div(
                  style = "text-align:center; margin-top:14px;",
                  div(
@@ -307,11 +317,11 @@ ui <- fluidPage(
                             style = "width:31%; min-width:140px; aspect-ratio:4/3; object-fit:cover; border-radius:10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);")
                  ),
                  p(style = "font-size:0.85rem; color:#666; margin-top:8px;",
-                   "Northwest Atlantic Kelp Workshop - 2024")
+                   "The McHenry Lab and collaborators across Blue Carbon Canada.")
                )
              ),
              
-            div(
+             div(
                class = "about-section",
                h4("Citation & data"),
                div(
@@ -325,9 +335,9 @@ ui <- fluidPage(
                  "collected through Indigenous partnerships are subject to data-sharing agreements and Indigenous data sovereignty principles ",
                  "and are not included in the public release."
                )
-               ),
+             ),
              
-          div(
+             div(
                class = "about-section",
                h4("Contact"),
                p(
@@ -335,6 +345,7 @@ ui <- fluidPage(
                  tags$strong("Jennifer McHenry"), " (Department of Biology, University of Victoria) at ",
                  tags$a(href = "mailto:jennmchenry@uvic.ca", style = "color:#B19CD9;", "jennmchenry@uvic.ca"), "."
                )
+             )
     ),
     
     # Show raw data
