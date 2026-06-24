@@ -21,8 +21,9 @@ processed_dir <- "Processed_for_app"
 # keep these in sync if you ever change the naming scheme.
 scenario_code <- function(scenario) tolower(gsub(" ", "", scenario))
 
-# Plain loader for already-downscaled rasters -- no spatSample() needed
-# since preprocess_rasters.R already did that step offline.
+# Plain loader for already-downscaled (and, for categorical layers,
+# already-reprojected-to-Web-Mercator) rasters -- preprocess_rasters.R
+# does all of that offline, so the app just loads the finished file.
 load_processed_rast <- function(filename) {
   print(glue("Loading {filename}"))
   rast(filename)
@@ -116,6 +117,17 @@ ui <- fluidPage(
         padding: 10px;
         text-align: center;
       }
+      /* Leaflet's addRasterImage() displays the raster as a plain <img>
+         element. When zoomed out, the browser shrinks that image to fit
+         the screen, and the default smooth/bilinear scaling blends
+         adjacent categorical colors together (e.g. orange next to yellow
+         becomes a muddy brown). Forcing nearest-neighbor scaling here
+         keeps category boundaries crisp at any zoom level. */
+      .leaflet-image-layer {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
     "))
   ),
   
@@ -167,9 +179,9 @@ ui <- fluidPage(
                  "surveys tell a more nuanced story \u2014 with some areas experiencing complete loss ",
                  "and others exhibiting shifts in species dominance, surprising pockets of ",
                  "persistence, and even signs of recovery after past heatwaves. Part of that ",
-                 "mismatch may reflect the sparse, often spatially biased occurrence data earlier models relied ",
-                 "on. However, a decade of expanded monitoring and surveys for kelps has led to ",
-                 "more locally resolved datasets for calibrating models to regional conditions."
+                 "mismatch reflects the sparse, often biased occurrence data earlier models relied ",
+                 "on; a decade of expanded monitoring has since produced a substantially larger, ",
+                 "more locally resolved dataset for calibrating models to regional conditions."
                ),
                div(
                  class = "study-goal",
@@ -185,25 +197,25 @@ ui <- fluidPage(
                p("We modeled the dominant canopy-forming kelp species across the region, each with distinct thermal preferences:"),
                fluidRow(
                  column(3, div(class = "species-card",
-                               tags$img(src = "alaria_esculenta.jpg", alt = "Alaria esculenta",
+                               tags$img(src = "Alaria_esculenta.jpg", alt = "Alaria esculenta",
                                         style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
                                p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Alaria esculenta"),
                                p(style = "margin:0; font-size:0.85rem; color:#444;", "Winged kelp \u2014 cold-adapted")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "agarum_clathratum.jpg", alt = "Agarum clathratum",
+                               tags$img(src = "Agarum_clathratum.jpg", alt = "Agarum clathratum",
                                         style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
                                p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Agarum clathratum"),
                                p(style = "margin:0; font-size:0.85rem; color:#444;", "Shotgun kelp \u2014 cold-adapted")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "saccharina_latissima.jpg", alt = "Saccharina latissima",
+                               tags$img(src = "Saccharina_latissima.jpg", alt = "Saccharina latissima",
                                         style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
                                p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Saccharina latissima"),
                                p(style = "margin:0; font-size:0.85rem; color:#444;", "Sugar kelp \u2014 eurythermal")
                  )),
                  column(3, div(class = "species-card",
-                               tags$img(src = "laminaria_digitata.jpg", alt = "Laminaria digitata",
+                               tags$img(src = "Laminaria_digitata.jpg", alt = "Laminaria digitata",
                                         style = "width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px;"),
                                p(style = "margin:8px 0 2px 0; font-style:italic; font-weight:600; color:#0b5563;", "Laminaria digitata"),
                                p(style = "margin:0; font-size:0.85rem; color:#444;", "Horsetail kelp \u2014 warm-adapted")
@@ -287,11 +299,14 @@ ui <- fluidPage(
                  "rapid ocean warming \u2014 and where they're most likely to hold on."
                ),
                p(
-                 "Funding and support for this work comes from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
+                 "In 2024, we held a workshop in Halifax, NS to identify and collate the datasets to support this study."
+               ),
+               p(
+                 "Funding and support for this work came from ", tags$a(href = "https://www.bluecarboncanada.ca", target = "_blank",
                                                                          style = "color:#B19CD9;",
                                                                          tags$strong("Blue Carbon Canada")),
-                 " \u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
-                 "This broader research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
+                 "\u2014 a multi-institute research program based at the University of Victoria that aims to better understand the role that kelp forests and other blue carbon ecosystems in Canada's natural climate solutions inventories.",
+                 "The broader BCC research program is funded by Fisheries and Oceans Canada, the Natural Science and Engineering Research Council of Canada, Mitacs, and Oceans North, ",
                  "among other funders."
                ),
                div(
@@ -403,9 +418,15 @@ server <- function(input, output) {
   # This is what actually colors the raster -- the addLegend() call below
   # is just static text and has no connection to the raster unless we pass
   # this same palette into addRasterImage().
-  kelp_pal <- colorFactor(
-    palette = c("#A8DADC", "#5B2C6F"),  # ordered to match domain: 0 = light teal, 1 = dark purple
-    domain = c(0, 1),
+  # Using colorBin() rather than colorFactor(): colorFactor requires an
+  # EXACT value match (e.g. precisely 1.0) to assign a color, so anything
+  # even slightly off-integer falls through as NA. colorBin assigns by
+  # range instead -- closer to how ArcGIS's default Natural Breaks
+  # classification handles this same data -- which is far more forgiving
+  # of any small numeric noise from upstream processing.
+  kelp_pal <- colorBin(
+    palette = c("#A8DADC", "#5B2C6F"),  # ordered to match bins: 0 = light teal, 1 = dark purple
+    bins = c(-0.5, 0.5, 1.5),
     na.color = "#00000000"              # fully transparent for NA / masked cells
   )
   
@@ -436,6 +457,7 @@ server <- function(input, output) {
     # here we use leafletProxy()
     leafletProxy(mapId = "dist") |>
       clearShapes() |>
+      clearImages() |>
       addRasterImage(x = kelp_rast(), 
                      colors = kelp_pal,
                      opacity = 0.7,
@@ -462,9 +484,10 @@ server <- function(input, output) {
   
   # Categorical palette for the 4-class projected change raster:
   # -2 = loss, -1 = stable presence, 0 = stable absence, 1 = gain
-  change_pal <- colorFactor(
-    palette = c("#E07A5F", "#5B2C6F", "#D9D9D9", "#2A9D8F"),  # ordered to match domain
-    domain = c(-2, -1, 0, 1),
+  # colorBin instead of colorFactor -- see note on kelp_pal above.
+  change_pal <- colorBin(
+    palette = c("#E07A5F", "#5B2C6F", "#D9D9D9", "#2A9D8F"),  # ordered to match bins
+    bins = c(-2.5, -1.5, -0.5, 0.5, 1.5),
     na.color = "#00000000"
   )
   
@@ -489,6 +512,7 @@ server <- function(input, output) {
     
     leafletProxy(mapId = "community_change") |>
       clearShapes() |>
+      clearImages() |>
       addRasterImage(x = change_rast(),
                      colors = change_pal,
                      opacity = 0.7,
@@ -507,10 +531,11 @@ server <- function(input, output) {
   })
   
   # Categorical palette for the 3-class community trajectory raster,
-  # matching the color scheme used in the published figure
-  composition_pal <- colorFactor(
-    palette = c("#00BCD4", "#FFEB3B", "#E67E22"),  # ordered to match domain
-    domain = c(0, 1, 2),
+  # matching the color scheme used in the published figure.
+  # colorBin instead of colorFactor -- see note on kelp_pal above.
+  composition_pal <- colorBin(
+    palette = c("#00BCD4", "#FFEB3B", "#E67E22"),  # ordered to match bins
+    bins = c(-0.5, 0.5, 1.5, 2.5),
     na.color = "#00000000"
   )
   
@@ -535,6 +560,7 @@ server <- function(input, output) {
     
     leafletProxy(mapId = "composition_change") |>
       clearShapes() |>
+      clearImages() |>
       addRasterImage(x = composition_rast(),
                      colors = composition_pal,
                      opacity = 0.7,
@@ -592,6 +618,7 @@ server <- function(input, output) {
     # here we use leafletProxy()
     leafletProxy(mapId = "env_layers") |>
       clearShapes() |>
+      clearImages() |>
       clearControls() |>
       addRasterImage(x = env_rast(),
                      colors = env_pal,
