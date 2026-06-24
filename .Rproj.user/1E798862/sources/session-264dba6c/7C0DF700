@@ -3,7 +3,11 @@
     "path": "C:/Users/Jenn/Dropbox/GITHUB/RShiny_Repos/nwa_kelp_app/app.r",
     "project_path": "app.r",
     "type": "r_source",
+<<<<<<< HEAD
     "hash": "4054637276",
+=======
+    "hash": "792225480",
+>>>>>>> 134801aad8933777088a4ce0072320278b914342
     "contents": "",
     "dirty": false,
     "created": 1782228846018.0,
@@ -12,6 +16,7 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
+<<<<<<< HEAD
         "cursorPosition": "267,0",
         "scrollLine": "265"
     },
@@ -21,6 +26,17 @@
     "collab_server": "",
     "source_window": "",
     "last_content_update": 1782262873960,
+=======
+        "cursorPosition": "76,39",
+        "scrollLine": "66"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1782262413,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1782262413726,
+>>>>>>> 134801aad8933777088a4ce0072320278b914342
     "read_only": false,
     "read_only_alternatives": []
 }
