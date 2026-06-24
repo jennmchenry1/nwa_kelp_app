@@ -270,6 +270,21 @@ ui <- fluidPage(
                class = "about-section",
                h4("How to use this app"),
                p(
+<<<<<<< HEAD
+=======
+                 "These projections assume kelp can disperse freely to any newly suitable habitat and don't ",
+                 "account for sea urchin grazing pressure, competition with turf algae and invasive species, ",
+                 "changes in kelp abundance or size at a given location, or the potential for local ",
+                 "acclimatization and adaptation. They should be read as a guide to relative climate exposure ",
+                 "and likely compositional change \u2014 not a precise forecast of future kelp cover."
+               )
+             ),
+             
+             div(
+               class = "about-section",
+               h4("How to use this app"),
+               p(
+>>>>>>> 134801aad8933777088a4ce0072320278b914342
                  "This app is the interactive companion to a peer reviewed paper in [TBD] \u2014 use the tabs above to ",
                  "explore the underlying species models, their projected redistribution under each ",
                  "emissions scenario, and the patterns of persistence and turnover that emerge at ",
